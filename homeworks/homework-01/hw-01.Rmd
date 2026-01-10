@@ -6,9 +6,6 @@ output:
 font-size: 8px
 ---
 
-::: callout-important
-:::
-
 # Instructions
 
 -   Write all narrative using full sentences. Write all interpretations and conclusions in the context of the data.
@@ -156,7 +153,31 @@ The data set is located in `college-data.csv` in the `data` folder. We will focu
 | out_of_state_total | double | Total cost for in-state residents in USD (sum of room & board + out of state tuition) |
 
 a.  Visualize the distribution of the response variable `early_career_pay`. Write 1 - 2 observations from the plot.
+
+    ```{r}
+    colleges <- read.csv("homeworks/data/college-data.csv")
+    head(colleges)
+    ```
+
+    ```{r}
+    library(ggplot2)
+    ggplot(data = colleges, aes(x = early_career_pay)) + geom_histogram()
+    ```
+
+    This histogram indicates that early career pay is right skewed, with a median payment around \$50,000.
+
 b.  Visualize the relationship between (i) `early_career_pay` and `type` and (ii) `early_career_pay` and `stem_percent`. Write an observation from each plot.
+
+    ```{r, fig.width=4, fig.height=3}
+    library(ggplot2)
+    ggplot(data = colleges, aes(y = early_career_pay, x = type)) + geom_boxplot()
+    ggplot(data = colleges, aes(y = early_career_pay, x = stem_percent)) + geom_point()
+    ```
+
+    The first graph indicates that private schools have a slightly higher median early career salary than public schools. Private schools' early career salaries also appear more right skewed than public schools, with a higher maximum.
+
+    The second graph demonstrates a positive relationship between the percent of degrees a university awards in STEM and its early career pay.
+
 c.  Below is the specification of the statistical model for this analysis. Fit the model and neatly display the results using 3 digits. Display the 95% confidence interval for the coefficients.
 
 \begin{align}
@@ -164,12 +185,33 @@ early\_career\_pay_{i} = \beta_0 &+ \beta_1~out\_of\_state\_total_{i} + \beta_2 
 &+ \beta_3 ~ stem\_percent_{i} + \beta_4 ~ type * stem\_percent_{i} \\ &+ \epsilon_{i}, \hspace{5mm} \text{where } \epsilon_i \sim N(0, \sigma^2)
 \end{align}
 
+```{r}
+collegemodel <- lm(early_career_pay ~ 
+                     out_of_state_total + type + stem_percent + type:stem_percent, 
+                   data = colleges)
+summary(collegemodel)
+confint(collegemodel, level = 0.95)
+```
+
 d.  How many degrees of freedom are there in the estimate of the regression standard error $\sigma$?
+
+    ```{r}
+    degrees <- nrow(colleges) - 5 # four parameters in model plus intercept
+    degrees
+    df.residual(collegemodel) # confirming calculation
+    ```
+
+    There are 588 degrees of freedom, calculated by n - p - 1.
+
 e.  What is the 95% confidence interval for the amount in which the intercept for public institutions differs from private institutions?
+
+    The confidence level output for typePublic is (-324.813, 2694.853), indicating how much the intercept for public institutions differs from private. We are 95% confident that the intercept for public institutions is between \$325 lower and \$2695 higher than the intercept for private, all else constant.
 
 ## Exercise 6
 
 Use the analysis from the previous exercise to write a paragraph (\~ 4 - 5 sentences) describing the differences in early career pay based on the institution characteristics. *The summary should be consistent with the results from the previous exercise, comprehensive, answers the primary analysis question, and tells a cohesive story (e.g., a list of interpretations will not receive full credit).*
+
+This analysis is examining 593 American colleges and universities to understand variability in their early career pay, or the median salary for their alumni with less than 5 years of experience. Initial exploratory data analysis indicated that private schools had a higher median early career salary than public schools, with a more right-skewed distribution and higher maximum values. We fit a regression model accounting for institutional type, STEM focus, and tuition to analyze these factors. After controlling for these other characteristics, we are 95% confident that public school graduates earn between \$325 less and \$2,695 more than their private school counterparts. These results suggest that institutional type alone explains little of the variation in early career outcomes.
 
 # Grading
 
