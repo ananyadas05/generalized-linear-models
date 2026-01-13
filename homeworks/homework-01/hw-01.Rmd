@@ -102,7 +102,7 @@ We will use the following variables:
 a.  Fit a linear regression model with `price` as the response variable and `sqft` as the predictor variable (Model 1). Interpret the slope coefficient in terms of the expected change in price when `sqft` increases by 100.
 
     ```{r}
-    houses <- read.csv("homeworks/data/kingCountyHouses.csv")
+    houses <- read.csv("homeworks/homework-01/kingCountyHouses.csv")
     head(houses)
     ```
 
@@ -150,7 +150,7 @@ The goal of this analysis is to use characteristics of 593 colleges and universi
 The data set is located in `college-data.csv` in the `data` folder. We will focus on the following variables:
 
 | variable | class | description |
-|:----------------|:----------------|:--------------------------------------|
+|:-----------------------|:-----------------------|:-----------------------|
 | name | character | Name of school |
 | state_name | character | state name |
 | type | character | Public or private |
@@ -161,7 +161,7 @@ The data set is located in `college-data.csv` in the `data` folder. We will focu
 a.  Visualize the distribution of the response variable `early_career_pay`. Write 1 - 2 observations from the plot.
 
     ```{r}
-    colleges <- read.csv("homeworks/data/college-data.csv")
+    colleges <- read.csv("homeworks/homework-01/college-data.csv")
     head(colleges)
     ```
 
