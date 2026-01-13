@@ -1,6 +1,6 @@
 ---
 title: "STA 310: Homework 1"
-author: 
+author: Ananya Das
 output: 
      pdf_document
 font-size: 8px
