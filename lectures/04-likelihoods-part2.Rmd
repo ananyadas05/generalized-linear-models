@@ -20,23 +20,17 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Announcements
 
-1. Office hours (mine) today will be from 3:00 -- 4:00 PM in my office. 
-2. Homework 3 has been posted. 
-3. Any typos from last lecture have been updated, so please check for these. 
-4. Homework 3 has been posted (and the exercise has been clarified that corresponds with this.) Thanks to Zoe regarding catching this! 
-5. Homework 1 has been returned. 
 
-## Comments on Homework 1
+<!-- ## Comments on Homework 1 -->
 
-1. For Exercise 2 part b, some students had a misunderstanding that if a predictor is binary, the linearity assumption is violated.
+<!-- 1. For Exercise 2 part b, some students had a misunderstanding that if a predictor is binary, the linearity assumption is violated. -->
 
-2. For Exercise 3 part a, some students did not fully understand what does "holding a variable constant" or "adjusting for a variable" mean when interpreting results from a multiple linear regression. 
+<!-- 2. For Exercise 3 part a, some students did not fully understand what does "holding a variable constant" or "adjusting for a variable" mean when interpreting results from a multiple linear regression.  -->
 
-3. Question 6: Issue regarding the concept of interpreting the coefficients in the presence of an interaction term was not clear to all students. 
+<!-- 3. Question 6: Issue regarding the concept of interpreting the coefficients in the presence of an interaction term was not clear to all students.  -->
 
-Please attend lab on Friday if you would like to go over some of these concepts. 
+<!-- Please attend lab on Friday if you would like to go over some of these concepts.  -->
 
 
 ## Computing set up
@@ -334,7 +328,6 @@ $$
 \hat{p}_H = \frac{46}{90} = 0.511
 $$
 
-. . .
 
 ## Model 2: Conditional model
 
@@ -619,33 +612,49 @@ We can also consider AIC and BIC. We cannot consider a LRT for a non-nested mode
 AIC = -2(max log-likelihood) + 2p
 
 ```{r}
-(Model1_AIC <- 2 * loglik1(46/90) + 2 * 1)
+(Model1_AIC <- -2 * loglik1(46/90) + 2 * 1)
 ```
 
-AIC_1 = -122.72
+AIC_1 = 126.72
 
 ```{r}
-(Model2_AIC <- 2* loglik2(25/48, 8/20, 13/22) + 2 * 3)
+(Model2_AIC <- -2* loglik2(25/48, 8/20, 13/22) + 2 * 3)
 ```
 
-AIC_2 = -117.1464
+AIC_2 = 129.1464
 
 ## Comparing non-nested models
 
+$$BIC = -2 (max \text{log-likelihood}) + p log(n)$$
+
 ```{r}
-(Model1_BIC <- 2 * loglik1(46/90) + 1 * log(30))
+(Model1_BIC <- -2 * loglik1(46/90) + 1 * log(30))
 ```
 
-BIC_1 = -121.32
+BIC_1 = 128.1232
 
 ```{r}
-(Model2_BIC <-2 * loglik2(25/48, 8/20, 13/22) 
+(Model2_BIC <- -2 * loglik2(25/48, 8/20, 13/22) 
  + 3 * log(30))
 ```
 
-BIC_2 = -112.9428
+BIC_2 = 133.35
 
 Which model would you choose and why based upon the AIC and BIC values? 
+
+## Summarizing our findings
+
+- Our findings from the nested and non-nested test support the more simple model. 
+
+\vspace*{1em}
+
+<!-- - Note that the sample size is quite low $(n=30)$, and it appears that the LRT has low power, which  -->
+<!-- is likely why it prefer the more simple model -->
+<!-- - In contrast, while BIC’s penalty is fairly mild, a modest likelihood improvement can make BIC pick the larger model even though the LRT doesn’t reject the null. -->
+<!-- - Those are consistent statements because model selection (BIC) and hypothesis testing (LRT) are different decisions.  -->
+<!-- - How to proceed? Typically, keep the more simple model (unless you have strong other evidence to support the more complex model).  -->
+
+
 
 
 ## Looking ahead 
